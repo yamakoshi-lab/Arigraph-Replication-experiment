@@ -2,13 +2,14 @@ import json
 import torch
 import numpy as np
 import transformers
+import os
 
 from graphs.contriever_graph import LLaMAContrieverGraph, ContrieverGraph
 from agents.llama_agent import LLaMAagent
 from agents.parent_agent import GPTagent
 from utils.utils import Logger
 
-
+api_key = os.environ.get("GEMINI_API_KEY")
 log_path = "MusiqueTestGPTmini"
 # musique | hotpotqa 
 task_name = "musique"
@@ -109,18 +110,18 @@ def load_setup(graph_model, qa_model):
         )
     
     if "llama" in graph_model:
-        graph = LLaMAContrieverGraph("", "You are a helpful assistant", "", pipeline, "cuda")
+        graph = LLaMAContrieverGraph("", "You are a helpful assistant", "", pipeline, "cpu")
         agent_items = LLaMAagent("You are a helpful assistant", pipeline)
 
     else:
-        graph = ContrieverGraph(graph_model, "You are a helpful assistant", "YOUR KEY HERE", "cuda")
-        agent_items = GPTagent(graph_model, "You are a helpful assistant", "YOUR KEY HERE")
+        graph = ContrieverGraph(graph_model, "You are a helpful assistant", api_key, "cpu")
+        agent_items = GPTagent(graph_model, "You are a helpful assistant", api_key)
 
     if "llama" in qa_model:
         agent_qa = LLaMAagent("You are a helpful assistant", pipeline)
 
     else:
-        agent_qa = GPTagent(graph_model, "You are a helpful assistant", "YOUR KEY HERE")
+        agent_qa = GPTagent(graph_model, "You are a helpful assistant", api_key)
 
     return agent_items, agent_qa, graph
 

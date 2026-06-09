@@ -116,7 +116,7 @@ class Logger:
     def __call__(self, text, filename = "log.txt", verbose = True):
         if verbose:
             print(text)
-        with open(self.path + "/" + filename, "a") as file:
+        with open(self.path + "/" + filename, "a", encoding="utf-8") as file:
             file.write(text + "\n")
             
     def to_json(self, obj, filename = "history.json"):

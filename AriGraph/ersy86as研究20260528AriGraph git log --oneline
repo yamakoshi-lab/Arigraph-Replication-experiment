@@ -1,0 +1,158 @@
+[33m3b36742[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Initial baseline with 1st run changes
+[33me884b76[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m thesises added
+[33m34b8458[m fix contriever graph
+[33m10c6b35[m fix clear graph bug
+[33mdcf428d[m fix data bug
+[33m8968c23[m fix llama graph bug
+[33mbf567ef[m Update README.md
+[33m2d55476[m QA ADDED
+[33m92f2c6e[m Merge branch 'main' of https://github.com/AIRI-Institute/AriGraph into main
+[33m2166b2b[m aaai ready
+[33mf373d4c[m saving
+[33m72df88d[m Update README.md
+[33m1b3b7e8[m Update README.md
+[33mb923314[m Merge branch 'main' of https://github.com/AIRI-Institute/AriGraph into main
+[33m144b64e[m fix requirements
+[33m9e4cc29[m temp
+[33mc007fe0[m Initial commit
+[33m4fefd3c[m Update README.md
+[33mcb94e47[m some fixes
+[33m92ec978[m Add files via upload
+[33ma8de06f[m some fixes
+[33me54de5e[m some fixes
+[33m7b993ff[m Add files via upload
+[33mb8cad58[m Update README.md
+[33mbb39a5c[m Update README.md
+[33mcbbac26[m some fixes
+[33ma2b1260[m some fixes
+[33ma61cf81[m Add files via upload
+[33m170a423[m Update README.md
+[33m96f62b2[m some fixes
+[33m8c5462a[m Delete img/Architecture (1).pdf
+[33m4f02184[m Add files via upload
+[33m5b537ec[m Add files via upload
+[33mb965de3[m Delete img/Architecture.png
+[33m8a0132b[m Add files via upload
+[33m69407d8[m some fixes
+[33mc78698e[m Update README.md
+[33m70840fc[m Update README.md
+[33mf37b35d[m Update README.md
+[33m402f8da[m some fixes
+[33mcfc26b1[m some fixes
+[33m48a9e1a[m Update README.md
+[33mcd8788b[m Update README.md
+[33mb10bc5e[m Update README.md
+[33m193c1d6[m Update README.md
+[33m1c40389[m Update README.md
+[33m0920f21[m Update README.md
+[33m931e28a[m Update README.md
+[33m7ae0555[m Update README.md
+[33m4c56ecc[m Update README.md
+[33m84ca142[m update architecture
+[33mcf3dc4d[m Update README.md
+[33m21a7771[m Add files via upload
+[33m928deff[m Update README.md
+[33m1fe79e2[m Delete INSTAGRAM (5).pdf
+[33mbe0650e[m architecture
+[33m163b9f1[m Delete img/test.txt
+[33mad6428f[m Rename INSTAGRAM (5).pdf to architecture.pdf
+[33m2354d48[m Add files via upload
+[33mc69b80d[m Create test.txt
+[33m3083795[m Add files via upload
+[33m3afd73e[m Update README.md
+[33m31adb7b[m Update README.md
+[33m49b75e3[m Create README.md
+[33m60170a5[m Delete textworld_adapter.py
+[33mc1d53ac[m Delete benchmark directory
+[33m2f09f15[m Merge pull request #1 from zer0o0ne/nips_2024
+[33ma01a9cc[m hardest log
+[33me2ad78a[m preprint
+[33m20607e0[m preprint
+[33mc9b25f3[m clean fix
+[33md27d7d1[m hardest
+[33mf18b993[m temp
+[33m58661d0[m actual
+[33mb579713[m final
+[33m44e4cef[m final
+[33mee31f24[m requirements
+[33mb6c1321[m microfixes
+[33m1d57875[m human pipeline
+[33m37bd96c[m human pipeline
+[33m3622b8c[m human pipeline
+[33m53a083b[m final code
+[33mbc0f0fd[m final code
+[33mf56c8b8[m final code
+[33m02c3b95[m clear
+[33m89d47f4[m final code
+[33m6e5d344[m openai emb
+[33m6c8f10b[m Instructor
+[33mb7c4b56[m fixes
+[33m434e138[m extended bfs
+[33m5c633d4[m extended bfs
+[33m04a7860[m New retrieve method
+[33mc17dc31[m New retrieve method
+[33m37f5ae2[m New retrieve method
+[33m304d245[m expanding on embeddings
+[33m289ad20[m Contriever
+[33m446dc7d[m first results
+[33me6d04d3[m first success
+[33mafb526e[m newest
+[33mfe5c460[m description
+[33md592d83[m Description
+[33m746d5bf[m Extended graph with plan
+[33m1722efa[m Extended graph with plan
+[33m49e69b5[m Extended graph
+[33me8d0e73[m Extended graph
+[33maafb001[m Graph without emb
+[33mccbc8c3[m fixes
+[33maa4af96[m fixes
+[33m786ed6c[m fixes
+[33m51f1974[m fixes
+[33mfcbfef8[m Cosmetic fixes
+[33m99e9e08[m Global update
+[33m47404d1[m reserved
+[33m75092c9[m first
+[33mf4baf64[m full pipeline
+[33m7bce134[m comments
+[33m75d2652[m clear version
+[33m9fc9421[m agent exploration
+[33mf12aa99[m working agent
+[33m8401f3b[m order
+[33m52ba22b[m second step to order
+[33m9a77283[m examples
+[33meac5cac[m examples
+[33mb9f4920[m examples
+[33m176b69a[m first step to order
+[33mec9db71[m regular saving
+[33m03ecd80[m walkthrough.py
+[33m20700ce[m Add files via upload
+[33mb203746[m Add files via upload
+[33m7527b7c[m just save
+[33m69382d4[m Update walkthrough.py
+[33m50d4f96[m Add files via upload
+[33madce792[m removed code doubles from strange merge
+[33m774fe19[m Merge branch 'master' of github.com:zer0o0ne/Knowledge_graphs
+[33mabcb70e[m walkthrough added
+[33me00deef[m update
+[33mf310d0f[m fixed get_player_location
+[33mc58948b[m default
+[33m2995f87[m last_state
+[33m5c82928[m added cooking benchmarks moved navigation benchmarks into separate folder
+[33m81d13fc[m Update play.py
+[33m3fd0fb6[m Update play.py
+[33m93fc014[m Update graph_test_env_2x2.py
+[33m1e6e32a[m Update graph_test_env_3x3.py
+[33m0039614[m Update graph_test_env_3x3.py
+[33m4f55ca5[m Update graph_test_env_2x2.py
+[33mcaa1f87[m Add files via upload
+[33m3c71f90[m new_envs
+[33m680f00f[m new_envs
+[33m0a6a40a[m last_bigaph
+[33m14d4ff5[m Add files via upload
+[33m2fd8ed1[m Add files via upload
+[33me266ab6[m adapter and example script to play textworld or extract game graph with networkx
+[33m054239c[m state_embeddings
+[33m6fa3052[m state_embeddings
+[33m7549e3b[m state_embeddings
+[33mec9254f[m state_embeddings
+[33m603c959[m first
