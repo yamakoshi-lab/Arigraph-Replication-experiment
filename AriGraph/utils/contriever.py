@@ -9,23 +9,29 @@ import torch
 # if contriever_path not in sys.path:
 #     sys.path.append(contriever_path)
 
-from transformers import AutoTokenizer
-from src.contriever import Contriever
+from transformers import AutoTokenizer, AutoModel
 
 
 class Retriever:
 
     @staticmethod
     def load_embedder_and_tokenizer(device="cpu"):
-        embedder = Contriever.from_pretrained("facebook/mcontriever").to(device)
-        tokenizer = AutoTokenizer.from_pretrained("facebook/mcontriever")
+       # BGE-M3モデルとトークナイザーを読み込み
+        embedder = AutoModel.from_pretrained("BAAI/bge-m3").to(device)#
+        tokenizer = AutoTokenizer.from_pretrained("BAAI/bge-m3")#
+        embedder.eval()#
         return embedder, tokenizer
 
     @staticmethod
     @torch.no_grad()
     def get_embeddings(list_of_strings, embedder, tokenizer):
-        inputs = tokenizer(list_of_strings, padding=True, truncation=True, return_tensors="pt").to(embedder.device)
-        embeds = embedder(**inputs)
+        # BGE-M3の最大入力トークン長512に合わせてトークナイズ
+        inputs = tokenizer(list_of_strings, padding=True, truncation=True, max_length=512, return_tensors="pt").to(embedder.device)#
+        outputs = embedder(**inputs)#
+        # BGE-M3の代表ベクトルとしてCLSトークン（インデックス0）の埋め込みを抽出
+        embeds = outputs.last_hidden_state[:, 0]#
+        # コサイン類似度計算（ドット積）に対応させるため、L2正規化を適用
+        embeds = torch.nn.functional.normalize(embeds, p=2, dim=-1)#
         return embeds
 
     def __init__(self, device="cpu"):
