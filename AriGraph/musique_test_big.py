@@ -10,7 +10,7 @@ from agents.parent_agent import GPTagent
 from utils.utils import Logger
 
 
-log_path = "MusiqueTestGPTmini_run4"
+log_path = "MusiqueTestGPTmini_run5"
 # musique | hotpotqa 
 task_name = "musique"
 topk_episodic = 2
