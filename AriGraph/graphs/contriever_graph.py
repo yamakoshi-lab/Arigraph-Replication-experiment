@@ -61,7 +61,7 @@ class ContrieverGraph(TripletGraph):
             results = graph_retr_search(
                 query, triplets, self.retriever, max_depth=depth,  
                 topk=6,
-                post_retrieve_threshold=0.80, 
+                post_retrieve_threshold=0.75, 
                 verbose=2
             )
             associated_subgraph.update(results)
@@ -120,7 +120,7 @@ class ContrieverGraph(TripletGraph):
             results = graph_retr_search(
                 query, triplets, self.retriever, max_depth=depth,  
                 topk=6,
-                post_retrieve_threshold=0.80, 
+                post_retrieve_threshold=0.75, 
                 verbose=2
             )
             associated_subgraph.update(results)

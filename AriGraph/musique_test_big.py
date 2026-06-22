@@ -10,7 +10,7 @@ from agents.parent_agent import GPTagent
 from utils.utils import Logger
 
 
-log_path = "MusiqueTestGPTmini_run6"
+log_path = "MusiqueTestGPTmini_run7"
 # musique | hotpotqa 
 task_name = "musique"
 topk_episodic = 2
@@ -80,7 +80,7 @@ def get_answer(agent, question, subgraph, episodic):
     "CoT: your chain of thoughts
     Direct answer: your direct answer to the question"
     Direct answer must be concrete and must not contain alternatives, descriptions or reasoning.
-    Write "Unknown" if you have doubts.
+    If you cannot find the answer in the retrieved facts or texts, use your internal knowledge to answer the question.
     Do not write anything except answer in the given format.
 
     Your answer: '''
