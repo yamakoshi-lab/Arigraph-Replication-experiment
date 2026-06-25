@@ -249,7 +249,8 @@ def find_top_episodic_emb(A, B, obs_plan_embedding, retriever):
     if not B:
         return results
     # List of all embeddings from the dictionary B
-    key_embeddings = torch.cat([value[1] for value in B.values()])
+    key_embeddings_list = [value[1] for value in B.values()]
+    key_embeddings = retriever.concat_embeds(key_embeddings_list)
 
 
     # Get the similarity scores using the provided retriever
@@ -272,9 +273,8 @@ def find_top_episodic_emb(A, B, obs_plan_embedding, retriever):
         similarity_scores = [0] * len(B)  # Default to zero scores if nothing is returned
 
     # Normalize similarity scores
-    max_similarity_score = max(similarity_scores, default=0).item() if similarity_scores else 0
-    similarity_scores = [score.item() / max_similarity_score if max_similarity_score else 0 for score in similarity_scores]
-
+    max_similarity_score = max(similarity_scores, default=0) if similarity_scores else 0
+    similarity_scores = [score / max_similarity_score if max_similarity_score else 0 for score in similarity_scores]
     # Calculate and normalize match counts
     match_counts = [sum(1 for element in A if element in value_list) for _, (value_list, _) in B.items()]
     

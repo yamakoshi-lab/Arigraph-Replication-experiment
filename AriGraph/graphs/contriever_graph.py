@@ -146,7 +146,7 @@ class ContrieverGraph(TripletGraph):
         return new_triplets    
     
     def get_embedding_local(self, text):
-        return self.retriever.embed([text])[0].cpu().detach().numpy()
+        return self.retriever.embed([text])
     
     
     def add_triplets(self, triplets):

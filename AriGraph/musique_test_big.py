@@ -1,3 +1,4 @@
+import os
 import json
 import torch
 import numpy as np
@@ -113,14 +114,14 @@ def load_setup(graph_model, qa_model):
         agent_items = LLaMAagent("You are a helpful assistant", pipeline)
 
     else:
-        graph = ContrieverGraph(graph_model, "You are a helpful assistant", "YOUR KEY HERE", "cuda")
-        agent_items = GPTagent(graph_model, "You are a helpful assistant", "YOUR KEY HERE")
+        graph = ContrieverGraph(graph_model, "You are a helpful assistant", os.environ.get("GEMINI_API_KEY"), "cuda")
+        agent_items = GPTagent(graph_model, "You are a helpful assistant", os.environ.get("GEMINI_API_KEY"))
 
     if "llama" in qa_model:
         agent_qa = LLaMAagent("You are a helpful assistant", pipeline)
 
     else:
-        agent_qa = GPTagent(graph_model, "You are a helpful assistant", "YOUR KEY HERE")
+        agent_qa = GPTagent(graph_model, "You are a helpful assistant", os.environ.get("GEMINI_API_KEY"))
 
     return agent_items, agent_qa, graph
 
