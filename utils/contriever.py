@@ -61,24 +61,31 @@ class Retriever:
         num_k = dense_scores.shape[1]
         
         hybrid_scores = torch.zeros((num_q, num_k))
-        
-        # ハイブリッドスコアの合成
-        for i in range(num_q):
-            for j in range(num_k):
-                d_score = dense_scores[i, j].item()
-                l_score = self.model.compute_lexical_matching_score(
-                    query_embeds['lexical_weights'][i], 
-                    key_embeds['lexical_weights'][j]
-                )
-                c_score = self.model.colbert_score(
-                    query_embeds['colbert_vecs'][i], 
-                    key_embeds['colbert_vecs'][j]
-                ).item()
-                
-                h_score = (d_score * 0.4) + (l_score * 0.2) + (c_score * 0.4)
-                hybrid_scores[i, j] = float(h_score)
-                
-        scores = hybrid_scores
+
+        mode = os.environ.get("RETRIEVAL_MODE", "dense")
+
+        if mode == "hybrid":
+            # ハイブリッドスコアの合成
+            for i in range(num_q):
+                for j in range(num_k):
+                    d_score = dense_scores[i, j].item()
+                    l_score = self.model.compute_lexical_matching_score(
+                        query_embeds['lexical_weights'][i],
+                        key_embeds['lexical_weights'][j]
+                    )
+                    c_score = self.model.colbert_score(
+                        query_embeds['colbert_vecs'][i],
+                        key_embeds['colbert_vecs'][j]
+                    ).item()
+
+                    h_score = (d_score * 0.4) + (l_score * 0.2) + (c_score * 0.4)
+                    hybrid_scores[i, j] = float(h_score)
+            scores = hybrid_scores
+        else:
+            # Dense単独（exp-001で検証済み。200問でF1 0.4072/EM 0.335、
+            # ハイブリッド(F1 0.3613/EM 0.245)を上回った）
+            scores = dense_scores
+
         batch_request = len(dense_q.shape) > 1
         
         if topk is not None:

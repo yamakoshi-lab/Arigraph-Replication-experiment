@@ -1,3 +1,4 @@
+import os
 import re
 from copy import deepcopy
 
@@ -116,11 +117,13 @@ class ContrieverGraph(TripletGraph):
         
         #retrieve for dict of items
 
+        threshold = float(os.environ.get("RETRIEVAL_THRESHOLD", "0.6"))
+
         for query, depth in items1.items():  # items1 is now a dictionary
             results = graph_retr_search(
-                query, triplets, self.retriever, max_depth=depth,  
+                query, triplets, self.retriever, max_depth=depth,
                 topk=6,
-                post_retrieve_threshold=0.65, 
+                post_retrieve_threshold=threshold,
                 verbose=2
             )
             associated_subgraph.update(results)
