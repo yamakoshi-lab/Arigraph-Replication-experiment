@@ -1,2 +1,6 @@
 graph7.pkl
 *.sh
+__pycache__/
+*.pyc
+.venv/
+venv/
