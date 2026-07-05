@@ -92,7 +92,7 @@ def get_answer(agent, question, subgraph, episodic):
     max_retries = 3
     for attempt in range(max_retries):
         try:
-            return agent.generate(prompt)[0]
+            return agent.generate(prompt, t=0.0)[0]
         except Exception as e:
             if attempt < max_retries - 1:
                 print(f"API Error in get_answer: {e}. Retrying in 10s...")
