@@ -1,4 +1,6 @@
 import os
+import re
+import string
 import json
 import torch
 import numpy as np
@@ -99,18 +101,32 @@ def get_answer(agent, question, subgraph, episodic):
                 print(f"API Error in get_answer: {e}. Max retries reached.")
                 return "CoT: Error during API call.\nDirect answer: Unknown"
 
+def normalize_answer(s):
+    """MuSiQue公式評価スクリプト(stonybrooknlp/musique, metrics/answer.py)と
+    同じ正規化: 小文字化・句読点除去・冠詞(a/an/the)除去・空白正規化。"""
+    def remove_articles(text):
+        return re.sub(r'\b(a|an|the)\b', ' ', text)
+    def white_space_fix(text):
+        return ' '.join(text.split())
+    def remove_punc(text):
+        exclude = set(string.punctuation)
+        return ''.join(ch for ch in text if ch not in exclude)
+    return white_space_fix(remove_articles(remove_punc(s.lower())))
+
 def compute_and_print_metrics(answer, task, trueP, true_len, pred_len, EM):
     try:
-        answer_str = answer.split("Direct answer:")[1].strip('''. \n`'"?''').lower()
-        if not answer_str:
+        answer_str = answer.split("Direct answer:")[1]
+        if not answer_str.strip():
             answer_str = "unknown"
     except IndexError:
         answer_str = "unknown"
-        
+
+    answer_str = normalize_answer(answer_str)
+    true_answer_str = normalize_answer(task["answer"])
+
     answer_words = answer_str.split()
-    true_answer_str = task["answer"].strip('''. \n'`"?''').lower()
     true_words = true_answer_str.split()
-    
+
     true_P = len({word for word in answer_words if word in true_words})
     trueP.append(true_P)
     pred_len.append(len(answer_words))
