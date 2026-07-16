@@ -7,12 +7,14 @@ from utils.utils import clear_triplet, check_conn, find_relation
 
 
 class TripletGraph:
-    def __init__(self, model, system_prompt, api_key):
+    def __init__(self, model, system_prompt, api_key, base_url=None, price_per_1m=None):
         self.triplets = []
         self.model, self.system_prompt = model, system_prompt
         self.total_amount = 0
+        self.price_per_1m = price_per_1m
         self.client = OpenAI(
             api_key=api_key,
+            base_url=base_url,
         )
 
 
@@ -52,8 +54,11 @@ class TripletGraph:
         prompt_tokens = chat_completion.usage.prompt_tokens
         completion_tokens = chat_completion.usage.completion_tokens
 
-        cost = completion_tokens * 3 / 100000 + prompt_tokens * 1 / 100000
-        cost = completion_tokens * 3 / 100000 + prompt_tokens * 1 / 100000
+        if self.price_per_1m is not None:
+            prompt_price, completion_price = self.price_per_1m
+            cost = completion_tokens * completion_price / 1_000_000 + prompt_tokens * prompt_price / 1_000_000
+        else:
+            cost = completion_tokens * 3 / 100000 + prompt_tokens * 1 / 100000
         self.total_amount += cost
         return response, cost
     
