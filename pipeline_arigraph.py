@@ -1,3 +1,4 @@
+import os
 import json
 from time import time
 
@@ -14,6 +15,19 @@ from utils.utils import Logger, observation_processing, find_unexplored_exits, \
     simulate_environment_actions, action_processing, action_deprocessing
 
 
+def load_dotenv(path=".env"):
+    if not os.path.exists(path):
+        return
+    with open(path) as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            os.environ.setdefault(key.strip(), value.strip())
+
+load_dotenv()
+
 
 # Changeable part of pipeline
 
@@ -26,6 +40,8 @@ env_name = "hunt_hard"
 model = "gpt-4o"
 retriever_device = "cpu"
 api_key = "insert your key here"
+base_url = None  # e.g. "https://api.deepinfra.com/v1/openai" for a non-OpenAI backbone
+price_per_1m = None  # e.g. (0.40, 0.40) as (prompt, completion) $/1M tokens; None = use OpenAI default pricing
 n_prev, topk_episodic = 5, 2
 max_steps, n_attempts = 150, 1
 need_exp = True
@@ -36,10 +52,10 @@ main_goal = MAIN_GOALS[env_name]
 log = Logger(log_file)
 env = TextWorldWrapper(ENV_NAMES[env_name])
 
-agent = GPTagent(model = model, system_prompt=default_system_prompt, api_key = api_key)
-agent_plan = GPTagent(model = "gpt-4-0125-preview", system_prompt=system_plan_agent, api_key = api_key)
-agent_action = GPTagent(model = "gpt-4-0125-preview", system_prompt=system_action_agent_sub_expl, api_key = api_key)
-agent_if_expl = GPTagent(model = model, system_prompt=if_exp_prompt, api_key = api_key)
+agent = GPTagent(model = model, system_prompt=default_system_prompt, api_key = api_key, base_url = base_url, price_per_1m = price_per_1m)
+agent_plan = GPTagent(model = "gpt-4-0125-preview", system_prompt=system_plan_agent, api_key = api_key, base_url = base_url, price_per_1m = price_per_1m)
+agent_action = GPTagent(model = "gpt-4-0125-preview", system_prompt=system_action_agent_sub_expl, api_key = api_key, base_url = base_url, price_per_1m = price_per_1m)
+agent_if_expl = GPTagent(model = model, system_prompt=if_exp_prompt, api_key = api_key, base_url = base_url, price_per_1m = price_per_1m)
 
 def run():        
     total_amount, total_time = 0, 0
@@ -64,7 +80,7 @@ def run():
         previous_location = observation_processing(env.curr_location).lower()
         attempt_amount, attempt_time = 0, 0
         done = False
-        graph = ContrieverGraph(model, system_prompt = "You are a helpful assistant", device = retriever_device, api_key = api_key)
+        graph = ContrieverGraph(model, system_prompt = "You are a helpful assistant", device = retriever_device, api_key = api_key, base_url = base_url, price_per_1m = price_per_1m)
         reward, step_reward = 0, 0
         rewards = []
         for step in range(max_steps):

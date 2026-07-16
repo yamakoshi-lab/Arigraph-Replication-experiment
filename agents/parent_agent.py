@@ -5,12 +5,14 @@ from openai import OpenAI
 
 
 class GPTagent:
-    def __init__(self, model, system_prompt, api_key):
+    def __init__(self, model, system_prompt, api_key, base_url=None, price_per_1m=None):
         self.system_prompt = system_prompt
         self.model = model
         self.total_amount = 0
+        self.price_per_1m = price_per_1m  # (prompt_price, completion_price) per 1M tokens; defaults to GPT-4-ish pricing if None
         self.client = OpenAI(
             api_key=api_key,
+            base_url=base_url,
         )
 
     def generate(self, prompt, jsn = False, t = 0.7):
@@ -49,11 +51,15 @@ class GPTagent:
         prompt_tokens = chat_completion.usage.prompt_tokens
         completion_tokens = chat_completion.usage.completion_tokens
 
-        cost = completion_tokens * 3 / 100000 + prompt_tokens * 1 / 100000
+        if self.price_per_1m is not None:
+            prompt_price, completion_price = self.price_per_1m
+            cost = completion_tokens * completion_price / 1_000_000 + prompt_tokens * prompt_price / 1_000_000
+        else:
+            cost = completion_tokens * 3 / 100000 + prompt_tokens * 1 / 100000
         self.total_amount += cost
         return response, cost
-           
-    
+
+
     def item_processing_scores(self, observation, plan):
         prompt = "####\n" + \
              "You are a retriever part of the agent system that navigates the environment in a text-based game.\n" + \
